@@ -2,6 +2,10 @@ package mruby
 
 import (
 	"bytes"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"testing"
 )
 
@@ -66,5 +70,30 @@ func TestRunBytecode(t *testing.T) {
 	err = RunBytecode(bin)
 	if err == nil || err.Error() != expected_err {
 		t.Errorf("Compiling and running `%s` should produce error `%s`, but produced `%v`.", wrong_source, expected_err, err.Error())
+	}
+}
+
+func TestMTests(t *testing.T) {
+	os.Chdir("mtests")
+
+	visit := func(path string, f os.FileInfo, err error) error {
+		if path == "." {
+			return nil
+		}
+		bin, err := ioutil.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		defer recover()
+		err = RunSource(string(bin))
+		if err != nil {
+			return fmt.Errorf("Tests in `%s` failed!", path)
+		}
+		return nil
+	}
+
+	err := filepath.Walk(".", visit)
+	if err != nil {
+		t.Fatal("Ruby tests failed. %s", err.Error())
 	}
 }
