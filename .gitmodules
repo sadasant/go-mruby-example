@@ -1,6 +1,3 @@
-[submodule "mruby"]
-	path = mruby
-	url = https://github.com/mruby/mruby
 [submodule "mrbgems/mruby-dir"]
 	path = mrbgems/mruby-dir
 	url = https://github.com/iij/mruby-dir
@@ -10,3 +7,6 @@
 [submodule "mrbgems/mruby-mtest"]
 	path = mrbgems/mruby-mtest
 	url = https://github.com/iij/mruby-mtest
+[submodule "mruby"]
+	path = mruby
+	url = https://github.com/scalone/mruby
