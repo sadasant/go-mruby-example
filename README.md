@@ -17,12 +17,12 @@ The repository structure is as simple as possible and the
 abstractions used are minimal to focus on displaying the process used
 in each method. The methods are:
 
--   `func Compile(code string) ([]byte, error) {`: Compiles some
+-   `func Compile(code string) ([]byte, error)`: Compiles some
     provided source code into a resulting `[]byte`, we also catch
     compilation errors.
--   `func RunSource(code string) error {` Runs a given source code,
+-   `func RunSource(code string) error` Runs a given source code,
     catching and returning encountered errors.
--   `func RunBytecode(bin []byte) error {` Runs a given bytecode,
+-   `func RunBytecode(bin []byte) error` Runs a given bytecode,
     catching and returning encountered errors.
 
 Instead of making it an executable application, this repository only
