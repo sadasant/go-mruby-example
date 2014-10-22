@@ -74,3 +74,23 @@ func RunSource(code string) error {
 
 	return nil
 }
+
+func RunBytecode(bin []byte) error {
+	// Setting up the mrb_state and the mrbc_context
+	mrb := C.mrb_open()
+	// cxt := C.mrbc_context_new(mrb)
+
+	defer C.mrb_close(mrb)
+
+	// Loading the bytecode into the mrb_state
+	C.mrb_load_irep(mrb, (*C.uint8_t)(unsafe.Pointer(&bin[0])))
+	// C.mrb_load_irep_cxt(mrb, (*C.uint8_t)(unsafe.Pointer(&bin[0])), cxt)
+
+	// Getting the exception
+	exc, err := C.__mrb_exc_cstr(mrb)
+	if err == nil {
+		return fmt.Errorf(C.GoString(exc))
+	}
+
+	return nil
+}

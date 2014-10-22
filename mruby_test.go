@@ -55,3 +55,16 @@ func TestRunSource(t *testing.T) {
 		t.Errorf("Running `%s` should produce error `%s`, but produced `%v`.", wrong_source, expected_err, err.Error())
 	}
 }
+
+func TestRunBytecode(t *testing.T) {
+	bin, _ := Compile(test_source)
+	err := RunBytecode(bin)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	bin, _ = Compile(wrong_source)
+	err = RunBytecode(bin)
+	if err == nil || err.Error() != expected_err {
+		t.Errorf("Compiling and running `%s` should produce error `%s`, but produced `%v`.", wrong_source, expected_err, err.Error())
+	}
+}
