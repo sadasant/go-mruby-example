@@ -43,6 +43,8 @@ func Compile(code string) ([]byte, error) {
 	var c_bin *C.uint8_t
 	var c_bin_size C.size_t
 
+	// The mrb_dump_irep method does not exist in mruby 1.0.0,
+	// The changes needed are available here: https://github.com/scalone/mruby/commit/c6998d9ba4bd390a06a2542eddd4aa6e0e869f80
 	irep := C.__ptr_irep(ptr)
 	if status := C.mrb_dump_irep(mrb, irep, 1, &c_bin, &c_bin_size); status < 0 {
 		return nil, fmt.Errorf("MRuby dump_irep failed with status %d", status)
