@@ -52,3 +52,25 @@ func Compile(code string) ([]byte, error) {
 
 	return bin, nil
 }
+
+func RunSource(code string) error {
+	// Setting up the mrb_state and the mrbc_context
+	mrb := C.mrb_open()
+	cxt := C.mrbc_context_new(mrb)
+
+	defer C.mrb_close(mrb)
+
+	// Loading the source code into the mrb_state
+	c_code := C.CString(code)
+	defer C.free(unsafe.Pointer(c_code))
+	defer recover()
+	C.mrb_load_string_cxt(mrb, c_code, cxt)
+
+	// Getting the exception
+	exc, err := C.__mrb_exc_cstr(mrb)
+	if err == nil {
+		return fmt.Errorf(C.GoString(exc))
+	}
+
+	return nil
+}
