@@ -1,3 +1,12 @@
 [submodule "mruby"]
 	path = mruby
 	url = https://github.com/mruby/mruby
+[submodule "mrbgems/mruby-dir"]
+	path = mrbgems/mruby-dir
+	url = https://github.com/iij/mruby-dir
+[submodule "mrbgems/mruby-io"]
+	path = mrbgems/mruby-io
+	url = https://github.com/iij/mruby-io
+[submodule "mrbgems/mruby-mtest"]
+	path = mrbgems/mruby-mtest
+	url = https://github.com/iij/mruby-mtest
